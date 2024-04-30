@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container edit-container">
+    <h2>Edit Item</h2>
+    <h4>{{ item.title }}</h4>
+    <br>
+  
+    <!-- Add a form for editing the item details -->
+    <form action="{% url 'update_item' item.id %}" method="POST">
+        {% csrf_token %}
+        <!-- Add form fields for editing item details -->
+        <!-- For example, you can use input fields or textarea fields -->
+        <input type="text" name="title" value="{{ item.title }}">
+        <br>
+        <!-- Add a submit button to save changes -->
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+
+{% endblock content %}

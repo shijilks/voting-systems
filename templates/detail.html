@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container voteContainer">
+    <h2>Vote Your Choice</h2>
+    <h4>Pick your favorite {{ category.title }}</h4>
+
+    {% if msg == "voted" %}
+    <div class="alert alert-primary" role="alert">
+      You have already voted in this category
+    </div>
+    <a class="btn btn-primary btn-lg" href="{% url 'result' category.slug %}">See Result</a>
+    {% else %}
+    <form action="{% url 'detail' category.slug %}" method="POST">
+      {% csrf_token %}
+      {% for category_item in categories %}
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="{{ category_item.id }}" name="category_item" id="flexRadioDefault{{ category_item.id }}" required>
+        <label class="form-check-label" for="flexRadioDefault{{ category_item.id }}">
+          {{ category_item.title }}
+        </label>
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% endif %}
+</div>
+
+{% endblock %}
